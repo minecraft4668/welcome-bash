@@ -20,14 +20,20 @@
 
 ## 使用方法
 
-1. 将 .welcome 脚本放置于用户主目录或任意路径
-2. 在 用户目录下找到Bash 启动脚本（如Linux中的 `~/.bashrc` 或 `~/.profile`及Windows中 `C:\Users\xxx(用户名)\.bashrc`）（Windows用户可能需要下载其他模拟终端（如Git））中添加如下内容：
+1. 执行以下脚本：
+Windows:
+````cmd
+git clone https://github.com/minecraft4668/Unknown.git %USERPROFILE%/
+````
+Linux
+````bash
+git clone https://github.com/minecraft4668/Unknown.git ~/
+````
+
+2. 在 用户目录下找到Bash 启动脚本（如Linux中的 `~/.bashrc` 或 `~/.profile`及Windows中 `C:\Users\xxx(用户名)\.bashrc`）（Windows用户可能需要下载其他模拟终端（如Git））末行添加如下内容：
 
     ````bash
-    # filepath: ~/.bashrc
-    # ...existing code...
     [ -f ~/.welcome ] && source ~/.welcome
-    # ...existing code...
     ````
 
 ## 参数配置
