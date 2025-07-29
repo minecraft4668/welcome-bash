@@ -1,0 +1,67 @@
+#!/bin/bash
+
+# 配置参数
+TARGET="8.8.8.8"           # 可更改为其他IP或域名
+PING_COUNT=4               # ping测试次数
+TIMEOUT=2                  # 超时时间（秒）
+CURL_TIMEOUT=3             # curl超时时间（秒）
+TRACEROUTE_HOPS=15         # traceroute最大跳数
+
+# 背景色
+BG_BLUE="\x1B[44m"    # 蓝色背景
+BG_GREEN="\x1B[42m"   # 绿色背景
+BG_RED="\x1B[41m"     # 红色背景
+
+# 前景色（文本色）
+TEXT_WHITE="\x1B[37;1m"  # 亮白色
+TEXT_YELLOW="\x1B[33;1m" # 亮黄色
+TEXT_GREEN="\x1B[32;1m"  # 亮绿色
+TEXT_CYAN="\x1B[36;1m"   # 亮青色
+TEXT_RED="\x1B[31;1m"    # 亮红色
+TEXT_BLUE="\x1B[34;1m"   # 亮蓝色
+TEXT_MAGENTA="\x1B[35;1m" # 亮紫色
+
+NC="\x1B[0m"
+
+# 获取Windows版本信息（TODO）
+# OS_VERSION=$(cmd.exe /c ver 2>/dev/null | grep -o '版本 [0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*')
+
+# 显示系统信息
+echo -e "${BG_BLUE}$(uname -s -r -o) ($(git --version 2>/dev/null))" # running on ${OS_VERSION}${NC}"
+echo ""
+echo -e "${TEXT_CYAN}Edited by Core.io${NC}"
+echo ""
+echo -e "${BG_BLUE}$(hostname)@$(whoami) log in at $(date)${NC}"
+
+# 网络检测和每日一言
+if ping -n $PING_COUNT -w $(($TIMEOUT * 1000)) $TARGET > /dev/null 2>&1; then
+    echo -e "${TEXT_GREEN}成功连接网络！尝试调用每日一言api……${NC}"
+    hitokoto=$(curl -s --connect-timeout $CURL_TIMEOUT 'https://v1.hitokoto.cn/?c=f&encode=text')
+    if [ -n "$hitokoto" ]; then
+        echo -e "${BG_GREEN}每日一言：${hitokoto}${NC}"
+    else
+        echo -e "${BG_RED}API调用失败${NC}"
+    fi
+else
+    echo -e "${TEXT_YELLOW}无法连接网络，尝试使用本地一言库……${NC}"
+    file_to_source=~/.hitokoto_lib
+    if [ ! -f "$file_to_source" ]; then
+        echo -e "${TEXT_RED}错误: 文件 $file_to_source 不存在${NC}" >&2
+    elif source "$file_to_source" 2>/dev/null; then
+        if declare -F get_random_hitokoto > /dev/null; then
+            echo -e "${BG_GREEN}每日一言：$(get_random_hitokoto)${NC}"
+        else
+            echo -e "${TEXT_RED}错误: 函数 get_random_hitokoto 未定义${NC}" >&2
+        fi
+    else
+        echo -e "${TEXT_RED}错误: 无法加载文件 $file_to_source${NC}" >&2
+    fi
+fi
+
+echo ""
+
+# 颜色测试
+for i in {0..15}; do
+    printf "\x1B[48;5;${i}m%4s\x1B[0m" ""
+    [ $((($i + 1) % 8)) -eq 0 ] && echo
+done

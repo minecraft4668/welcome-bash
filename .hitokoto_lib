@@ -1,0 +1,133 @@
+#!/bin/bash
+
+# 一言库 Bash 数组格式
+declare -a HITOKOTO_LIBRARY
+
+# 智慧与哲理
+HITOKOTO_LIBRARY+=("行路难，不在山不在水，只在人情反复间 —— 白居易")
+HITOKOTO_LIBRARY+=("世界上最远的距离，是鱼与飞鸟的距离 —— 泰戈尔")
+HITOKOTO_LIBRARY+=("未曾哭过长夜的人，不足以语人生 —— 歌德")
+HITOKOTO_LIBRARY+=("每一个不曾起舞的日子，都是对生命的辜负 —— 尼采")
+HITOKOTO_LIBRARY+=("黑夜给了我黑色的眼睛，我却用它寻找光明 —— 顾城")
+
+# 励志与成长
+HITOKOTO_LIBRARY+=("当你的才华还撑不起你的野心时，那你就应该静下心来学习")
+HITOKOTO_LIBRARY+=("种一棵树最好的时间是十年前，其次是现在 —— 非洲谚语")
+HITOKOTO_LIBRARY+=("不是看到希望才坚持，而是坚持了才看到希望")
+HITOKOTO_LIBRARY+=("你生而有翼，为何竟愿一生匍匐前行 —— 鲁米")
+HITOKOTO_LIBRARY+=("真正的英雄主义，是在认清生活真相后依然热爱生活 —— 罗曼·罗兰")
+
+# 自然与时光
+HITOKOTO_LIBRARY+=("明月松间照，清泉石上流 —— 王维")
+HITOKOTO_LIBRARY+=("春有百花秋有月，夏有凉风冬有雪 —— 无门慧开")
+HITOKOTO_LIBRARY+=("流光容易把人抛，红了樱桃，绿了芭蕉 —— 蒋捷")
+HITOKOTO_LIBRARY+=("凌晨四点醒来，发现海棠花未眠 —— 川端康成")
+HITOKOTO_LIBRARY+=("树在。山在。大地在。岁月在。我在。你还要怎样更好的世界？ —— 张晓风")
+
+# 情感与人生
+HITOKOTO_LIBRARY+=("从前的日色变得慢，车，马，邮件都慢，一生只够爱一个人 —— 木心")
+HITOKOTO_LIBRARY+=("世间所有的相遇，都是久别重逢 —— 《一代宗师》")
+HITOKOTO_LIBRARY+=("你微笑地看着我，不说一句话。而我知道，为了这个，我已等了很久 —— 泰戈尔")
+HITOKOTO_LIBRARY+=("不如意事常八九，可与语人无二三 —— 方岳")
+HITOKOTO_LIBRARY+=("山河远阔，人间烟火，无一是你，无一不是你 —— 春和")
+
+# 科技与未来
+HITOKOTO_LIBRARY+=("宇宙最不可理解之处在于它竟然可以被理解 —— 爱因斯坦")
+HITOKOTO_LIBRARY+=("代码如诗，逻辑如歌 —— Linus Torvalds")
+HITOKOTO_LIBRARY+=("任何足够先进的科技，皆与魔法无异 —— 克拉克第三定律")
+HITOKOTO_LIBRARY+=("预测未来的最好方式，就是创造它 —— 艾伦·凯")
+HITOKOTO_LIBRARY+=("我们生活在阴沟里，但仍有人仰望星空 —— 王尔德")
+
+# 动漫游戏经典
+HITOKOTO_LIBRARY+=("有思念你的人在的地方，就是你的归处 —— 《火影忍者》")
+HITOKOTO_LIBRARY+=("我命由我不由天 —— 《哪吒之魔童降世》")
+HITOKOTO_LIBRARY+=("人类赞歌就是勇气的赞歌 —— 《JOJO的奇妙冒险》")
+HITOKOTO_LIBRARY+=("连接吧，心愿！ —— 《新世纪福音战士》")
+HITOKOTO_LIBRARY+=("能哭的地方只有厕所和爸爸的怀里 —— 《CLANNAD》")
+
+# 文艺与创作
+HITOKOTO_LIBRARY+=("文章本天成，妙手偶得之 —— 陆游")
+HITOKOTO_LIBRARY+=("读书破万卷，下笔如有神 —— 杜甫")
+HITOKOTO_LIBRARY+=("删繁就简三秋树，领异标新二月花 —— 郑板桥")
+HITOKOTO_LIBRARY+=("艺术不是模仿，而是创造 —— 梵高")
+HITOKOTO_LIBRARY+=("写诗是让平凡事物变得不平凡的过程 —— 希尼")
+
+# 幽默与生活
+HITOKOTO_LIBRARY+=("人生就像骑自行车，想保持平衡就得往前走 —— 爱因斯坦")
+HITOKOTO_LIBRARY+=("早起的鸟儿有虫吃，早起的虫儿被鸟吃 —— 网络流行语")
+HITOKOTO_LIBRARY+=("生活就像一盒巧克力，你永远不知道下一颗是什么味道 —— 《阿甘正传》")
+HITOKOTO_LIBRARY+=("成年人的崩溃，往往以'没事'结束 —— 网络流行语")
+HITOKOTO_LIBRARY+=("所谓放假，家里遭嫌，出门没钱，每天特闲 —— 当代青年现状")
+
+# 东方古典
+HITOKOTO_LIBRARY+=("上善若水，水善利万物而不争 —— 老子")
+HITOKOTO_LIBRARY+=("天行健，君子以自强不息 —— 《周易》")
+HITOKOTO_LIBRARY+=("菩提本无树，明镜亦非台 —— 慧能")
+HITOKOTO_LIBRARY+=("人生天地间，忽如远行客 —— 《古诗十九首》")
+HITOKOTO_LIBRARY+=("此情可待成追忆，只是当时已惘然 —— 李商隐")
+
+# 西方箴言
+HITOKOTO_LIBRARY+=("认识你自己 —— 德尔斐神谕")
+HITOKOTO_LIBRARY+=("我思故我在 —— 笛卡尔")
+HITOKOTO_LIBRARY+=("存在即合理 —— 黑格尔")
+HITOKOTO_LIBRARY+=("给时光以生命，而不是给生命以时光 —— 帕斯卡")
+HITOKOTO_LIBRARY+=("未经省察的人生不值得过 —— 苏格拉底")
+
+# 使用示例函数
+get_random_hitokoto() {
+    # 获取数组长度
+    local length=${#HITOKOTO_LIBRARY[@]}
+    
+    # 生成随机索引
+    local index=$((RANDOM % length))
+    
+    # 返回随机一言
+    echo "${HITOKOTO_LIBRARY[$index]}"
+}
+
+# 显示所有一言
+show_all_hitokoto() {
+    for i in "${!HITOKOTO_LIBRARY[@]}"; do
+        printf "%2d: %s\n" "$((i+1))" "${HITOKOTO_LIBRARY[$i]}"
+    done
+}
+
+# 按类别显示
+show_by_category() {
+    echo "===== 智慧与哲理 ====="
+    for i in {0..4}; do echo "${HITOKOTO_LIBRARY[$i]}"; done
+    
+    echo -e "\n===== 励志与成长 ====="
+    for i in {5..9}; do echo "${HITOKOTO_LIBRARY[$i]}"; done
+    
+    # 其他类别类似...
+}
+
+# # 主程序
+# main() {
+#     echo "===== 一言库 Bash 版 ====="
+#     echo "1. 显示随机一言"
+#     echo "2. 显示全部内容"
+#     echo "3. 按类别查看"
+#     echo "4. 添加自定义一言"
+#     echo "5. 退出"
+    
+#     read -p "请选择操作: " choice
+    
+#     case $choice in
+#         1) echo -e "\n「 $(get_random_hitokoto) 」\n" ;;
+#         2) show_all_hitokoto ;;
+#         3) show_by_category ;;
+#         4) 
+#             read -p "看看你的自定义一言：" new_hitokoto
+#             echo "HITOKOTO_LIBRARY+=(${new_hitokoto})" >> ~/.hitokoto_lib
+#             ;;
+#         5) exit 0 ;;
+#         *) echo "无效选择" ;;
+#     esac
+# }
+
+# # 执行主程序
+# main
+
+#自定义一言
