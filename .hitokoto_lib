@@ -103,31 +103,34 @@ show_by_category() {
     # 其他类别类似...
 }
 
-# # 主程序
-# main() {
-#     echo "===== 一言库 Bash 版 ====="
-#     echo "1. 显示随机一言"
-#     echo "2. 显示全部内容"
-#     echo "3. 按类别查看"
-#     echo "4. 添加自定义一言"
-#     echo "5. 退出"
+# 主程序
+main() {
+    echo "===== 一言库 Bash 版 ====="
+    echo "1. 显示随机一言"
+    echo "2. 显示全部内容"
+    echo "3. 按类别查看"
+    echo "4. 添加自定义一言"
+    echo "5. 退出"
     
-#     read -p "请选择操作: " choice
+    read -p "请选择操作: " choice
     
-#     case $choice in
-#         1) echo -e "\n「 $(get_random_hitokoto) 」\n" ;;
-#         2) show_all_hitokoto ;;
-#         3) show_by_category ;;
-#         4) 
-#             read -p "看看你的自定义一言：" new_hitokoto
-#             echo "HITOKOTO_LIBRARY+=(${new_hitokoto})" >> ~/.hitokoto_lib
-#             ;;
-#         5) exit 0 ;;
-#         *) echo "无效选择" ;;
-#     esac
-# }
+    case $choice in
+        1) echo -e "\n「 $(get_random_hitokoto) 」\n" ;;
+        2) show_all_hitokoto ;;
+        3) show_by_category ;;
+        4) 
+            read -p "看看你的自定义一言：" new_hitokoto
+            echo "HITOKOTO_LIBRARY+=(${new_hitokoto})" >> ~/.hitokoto_lib
+            ;;
+        5) exit 0 ;;
+        *) echo "无效选择" ;;
+    esac
+}
 
-# # 执行主程序
-# main
+if [ "${BASH_SOURCE[0]}" = "$0" ]; then
+    main
+else
+    echo "一言库导入成功！"
+fi
 
 #自定义一言
