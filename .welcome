@@ -1,11 +1,6 @@
 #!/bin/bash
 
-# 配置参数
-TARGET="8.8.8.8"           # 可更改为其他IP或域名
-PING_COUNT=1               # ping测试次数
-TIMEOUT=2                  # 超时时间（秒）
 CURL_TIMEOUT=3             # curl超时时间（秒）
-TRACEROUTE_HOPS=15         # traceroute最大跳数
 
 # 背景色
 
@@ -38,25 +33,17 @@ TEXT_MAGENTA="\x1B[35;1m" # 亮紫色
 
 NC="\x1B[0m"
 
-# # 获取Windows版本信息
-# OS_VERSION=$(PowerShell -NoProfile -Command "[System.Environment]::OSVersion.Version.ToString()" 2>/dev/null | awk -F. '{print "版本 " $1"."$2"."$3}')
-# echo $OS_VERSION
-
-#!/bin/bash
-
-declare -a is_win
-
 detect_os() {
     case "$(uname -s)" in
         Linux*)
             if [ -f /etc/os-release ]; then
                 . /etc/os-release
-                echo "${WHITE}Linux ($PRETTY_NAME)"
+                echo "${BG_WHITE}Linux ($PRETTY_NAME)"
             elif [ -f /etc/lsb-release ]; then
                 . /etc/lsb-release
-                echo "Linux ($DISTRIB_DESCRIPTION)"
+                echo "${BG_WHITE}Linux ($DISTRIB_DESCRIPTION)"
             else
-                echo "Linux (Unknown distribution)"
+                echo "${BG_WHITE}Linux (Unknown distribution)"
             fi
             
             # 检测 WSL
@@ -71,7 +58,7 @@ detect_os() {
             
         CYGWIN*|MINGW*|MSYS*)
             echo "Windows (Cygwin/MINGW)"
-            is_win+=("1")
+            is_win=1
             ;;
             
         *)
@@ -86,10 +73,11 @@ echo ""
 echo -e "${TEXT_CYAN}Edited by Core.io${NC}"
 echo -e "${BG_BRIGHT_GREEN} Welcome Bash v1.0${NC}"
 echo ""
-if [ "${is_win}"  ]; then
-    echo -e "${BG_BLUE}$(whoami)@$(hostname) log in at $(date)${NC}"
-else
+if [ -f /etc/hostname  ]; then
     echo -e "${BG_BLUE}$(whoami)@$(cat /etc/hostname) log in at $(date)${NC}"
+else
+    # 如果 /etc/hostname 不存在，使用 uname 命令获取主机名
+    echo -e "${BG_BLUE}$(whoami)@$(uname -n) log in at $(date)${NC}"
 fi
 
 

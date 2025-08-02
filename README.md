@@ -17,12 +17,26 @@
 
 1. 执行以下脚本：
 Windows:
+
+GitHub源:
 ````cmd
 git clone https://github.com/minecraft4668/Unknown.git %USERPROFILE%/
 ````
-Linux
+Gitee源:
+````cmd
+git clone https://github.com/minecraft4668/Unknown.git %USERPROFILE%/
+````
+
+Linux:
+
+GitHub源:
 ````bash
 git clone https://github.com/minecraft4668/Unknown.git ~/
+````
+
+Gitee源:
+````bash
+git clone https://gitee.com/furinas-domain/welcome-bash.git ~/
 ````
 
 2. 在 用户目录下找到Bash 启动脚本（如Linux中的 `~/.bashrc` 或 `~/.profile`及Windows中 `C:\Users\xxx(用户名)\.bashrc`）（Windows用户可能需要下载其他模拟终端（如Git））末行添加如下内容：
@@ -30,6 +44,8 @@ git clone https://github.com/minecraft4668/Unknown.git ~/
     ````bash
     [ -f ~/.welcome ] && source ~/.welcome
     ````
+
+3. 大功告成！
 
 ## 依赖
 
