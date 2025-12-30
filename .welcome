@@ -1,49 +1,64 @@
 #!/bin/bash
+# 自定义显示顺序及内容请见文件末尾
+# 代码说明：
+# linedown [LINE_TIMES=1] 输出指定行数 (默认1行)
+# output_os 输出操作系统信息
+# hitokoto 输出一言
+# color_test 颜色测试
 
 CURL_TIMEOUT=3             # curl超时时间（秒）
 
 # 背景色
 
-BG_BLACK="\e[40m"
-BG_RED="\e[41m"
-BG_GREEN="\e[42m"
-BG_YELLOW="\e[43m"
-BG_BLUE="\e[44m"
-BG_MAGENTA="\e[45m"
-BG_CYAN="\e[46m"
-BG_WHITE="\e[47m"
+BG_BLACK="\e[40m"   # 黑色
+BG_RED="\e[41m"     # 红色
+BG_GREEN="\e[42m"   # 绿色
+BG_YELLOW="\e[43m"  # 黄色
+BG_BLUE="\e[44m"    # 蓝色
+BG_MAGENTA="\e[45m" # 紫色
+BG_CYAN="\e[46m"    # 青色
+BG_WHITE="\e[47m"   # 白色
 
-BG_BRIGHT_BLACK="\e[100m"
-BG_BRIGHT_RED="\e[101m"
-BG_BRIGHT_GREEN="\e[102m"
-BG_BRIGHT_YELLOW="\e[103m"
-BG_BRIGHT_BLUE="\e[104m"
-BG_BRIGHT_MAGENTA="\e[105m"
-BG_BRIGHT_CYAN="\e[106m"
-BG_BRIGHT_WHITE="\e[107m"
+BG_BRIGHT_BLACK="\e[100m"   # 稍亮的黑色
+BG_BRIGHT_RED="\e[101m"     # 亮红色
+BG_BRIGHT_GREEN="\e[102m"   # 浅绿色
+BG_BRIGHT_YELLOW="\e[103m"  # 亮黄色
+BG_BRIGHT_BLUE="\e[104m"    # 亮蓝色
+BG_BRIGHT_MAGENTA="\e[105m" # 亮紫色
+BG_BRIGHT_CYAN="\e[106m"    # 亮青色
+BG_BRIGHT_WHITE="\e[107m"   # 亮白色
 
 # 前景色（文本色）
-TEXT_WHITE="\x1B[37;1m"  # 亮白色
-TEXT_YELLOW="\x1B[33;1m" # 亮黄色
-TEXT_GREEN="\x1B[32;1m"  # 亮绿色
-TEXT_CYAN="\x1B[36;1m"   # 亮青色
-TEXT_RED="\x1B[31;1m"    # 亮红色
-TEXT_BLUE="\x1B[34;1m"   # 亮蓝色
-TEXT_MAGENTA="\x1B[35;1m" # 亮紫色
+TEXT_BLACK="\x1B[30;1m"  # 黑色
+TEXT_WHITE="\x1B[37;1m"  # 白色
+TEXT_YELLOW="\x1B[33;1m" # 黄色
+TEXT_GREEN="\x1B[32;1m"  # 绿色
+TEXT_CYAN="\x1B[36;1m"   # 青色
+TEXT_RED="\x1B[31;1m"    # 红色
+TEXT_BLUE="\x1B[34;1m"   # 蓝色
+TEXT_MAGENTA="\x1B[35;1m" # 紫色
 
 NC="\x1B[0m"
 
-detect_os() {
+linedown() {
+    local LINE_TIMES=${1:-1}
+    for i in {1..$LINE_TIMES}; do
+        echo ""
+    done
+}
+
+output_os() {
+    echo -e "${BG_BLUE}$(uname -s -r -o) running on\c" # running on ${OS_VERSION}${NC}"
     case "$(uname -s)" in
         Linux*)
             if [ -f /etc/os-release ]; then
                 . /etc/os-release
-                echo "${BG_WHITE}Linux ($PRETTY_NAME)"
+                echo "${BG_WHITE}${TEXT_MAGENTA}Linux ($PRETTY_NAME)"
             elif [ -f /etc/lsb-release ]; then
                 . /etc/lsb-release
-                echo "${BG_WHITE}Linux ($DISTRIB_DESCRIPTION)"
+                echo "${BG_WHITE}${TEXT_MAGENTA}Linux ($DISTRIB_DESCRIPTION)"
             else
-                echo "${BG_WHITE}Linux (Unknown distribution)"
+                echo "${BG_WHITE}${TEXT_MAGENTA}Linux (Unknown distribution)"
             fi
             
             # 检测 WSL
@@ -53,57 +68,76 @@ detect_os() {
             ;;
             
         Darwin*)
-            echo "macOS $(sw_vers -productVersion)"
+            echo "${BG_WHITE}${TEXT_MAGENTA}macOS $(sw_vers -productVersion)"
             ;;
             
-        CYGWIN*|MINGW*|MSYS*)
-            echo "Windows (Cygwin/MINGW)"
+        CYGWIN*)
+            echo "${BG_WHITE}${TEXT_MAGENTA}Windows (Cygwin $(uname -r))"
+            is_win=1
+            ;;
+
+        MINGW*)
+            echo "${BG_WHITE}${TEXT_MAGENTA}Windows (MINGW $(gcc -v)))"
+            is_win=1
+            ;;
+
+        MSYS*)
+            echo "${BG_WHITE}${TEXT_MAGENTA}Windows (MSYS $(pacman -Q msys2-runtime))"
             is_win=1
             ;;
             
         *)
-            echo "Unknown Operating System"
+            echo "${BG_WHITE}${TEXT_MAGENTA}Unknown Operating System"
             ;;
     esac
 }
 
-# 显示系统信息
-echo -e "${BG_BLUE}$(uname -s -r -o) ($(git --version 2>/dev/null)) running on $(detect_os)${NC}" # running on ${OS_VERSION}${NC}"
-echo ""
-echo -e "${TEXT_CYAN}Edited by Core.io${NC}"
-echo -e "${BG_BRIGHT_GREEN} Welcome Bash v1.0${NC}"
-echo ""
-if [ -f /etc/hostname  ]; then
-    echo -e "${BG_BLUE}$(whoami)@$(cat /etc/hostname) log in at $(date)${NC}"
-else
-    # 如果 /etc/hostname 不存在，使用 uname 命令获取主机名
-    echo -e "${BG_BLUE}$(whoami)@$(uname -n) log in at $(date)${NC}"
-fi
+welcome_words() {
+    echo -e "${TEXT_CYAN}Edited by Core.io${NC}"
+    echo -e "${BG_BRIGHT_GREEN} Welcome Bash v1.0${NC}"
+}
 
-
-hitokoto=$(curl -s --connect-timeout $CURL_TIMEOUT 'https://v1.hitokoto.cn/?c=f&encode=text')
-if [ -n "$hitokoto" ]; then
-    echo -e "${BG_GREEN}每日一言：${hitokoto}${NC}"
-else
-    echo -e "${BG_RED}API调用失败，尝试使用本地库......${NC}"
-    file_to_source=~/.hitokoto_lib
-    if [ ! -f "$file_to_source" ]; then
-        echo -e "${TEXT_RED}错误: 文件 $file_to_source 不存在${NC}" >&2
-    elif source "$file_to_source" 2>/dev/null; then
-        if declare -F get_random_hitokoto > /dev/null; then
-            echo -e "${BG_GREEN}每日一言：$(get_random_hitokoto)${NC}"
-        else
-            echo -e "${TEXT_RED}错误:库文件不完整！${NC}" >&2
-        fi
+output_hosts() {
+    if [ -f /etc/hostname  ]; then
+        echo -e "${BG_BLUE}$(whoami)@$(cat /etc/hostname) log in at $(date)${NC}"
     else
-        echo -e "${TEXT_RED}错误: 无法加载文件 $file_to_source${NC}" >&2
+        echo -e "${BG_BLUE}$(whoami)@$(uname -n) log in at $(date)${NC}"
     fi
-fi
+}
 
-echo ""
+hitokoto() {
+    hitokoto=$(curl -s --connect-timeout $CURL_TIMEOUT 'https://v1.hitokoto.cn/?c=f&encode=text')
+    if [ -n "$hitokoto" ]; then
+        echo -e "${BG_GREEN}每日一言：${hitokoto}${NC}"
+    else
+        echo -e "${BG_RED}API调用失败，尝试使用本地库......${NC}"
+        file_to_source=~/.hitokoto_lib
+        if [ ! -f "$file_to_source" ]; then
+            echo -e "${TEXT_RED}错误: 文件 $file_to_source 不存在${NC}" >&2
+        elif source "$file_to_source" 2>/dev/null; then
+            if declare -F get_random_hitokoto > /dev/null; then
+                echo -e "${BG_GREEN}每日一言：$(get_random_hitokoto)${NC}"
+            else
+                echo -e "${TEXT_RED}错误:库文件不完整！${NC}" >&2
+            fi
+        else
+            echo -e "${TEXT_RED}错误: 无法加载文件 $file_to_source${NC}" >&2
+        fi
+    fi
+}
 
 # 颜色测试
-for i in {0..15}; do
-    printf "\x1B[48;5;${i}m%4s\x1B[0m" ""
-    [ $((($i + 1) % 8)) -eq 0 ] && echo
-done
+color_test() {
+    for i in {0..15}; do
+        printf "\x1B[48;5;${i}m%4s\x1B[0m" ""
+        [ $((($i + 1) % 8)) -eq 0 ] && echo
+    done
+}
+
+# === 顺序排列及自定义 ===
+output_os
+linedown
+welcome_words
+linedown
+output_hosts
+hitokoto
