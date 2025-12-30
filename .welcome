@@ -38,6 +38,15 @@ TEXT_RED="\x1B[31;1m"    # 红色
 TEXT_BLUE="\x1B[34;1m"   # 蓝色
 TEXT_MAGENTA="\x1B[35;1m" # 紫色
 
+# 字体样式
+TEXT_UL="\x1B[4m"     # 下划线
+TEXT_BOLD="\x1B[1m"   # 加粗
+TEXT_BLINK="\x1B[5m"  # 闪烁
+TEXT_INVERT="\x1B[7m" # 反转
+TEXT_DISAPP="\x1B[8m" # 消失
+
+# 清空当前层效果
+
 NC="\x1B[0m"
 
 linedown() {
@@ -94,11 +103,11 @@ output_os() {
 
 welcome_words() {
     echo -e "${TEXT_CYAN}Edited by Core.io${NC}"
-    echo -e "${BG_BRIGHT_GREEN} Welcome Bash v1.0${NC}"
+    echo -e "${BG_BRIGHT_GREEN} Welcome Bash v1.1${NC}"
 }
 
 output_hosts() {
-    if [ -f /etc/hostname  ]; then
+    if [[ -f /etc/hostname && ! -s "/etc/hostname" ]]; then
         echo -e "${BG_BLUE}$(whoami)@$(cat /etc/hostname) log in at $(date)${NC}"
     else
         echo -e "${BG_BLUE}$(whoami)@$(uname -n) log in at $(date)${NC}"
@@ -116,7 +125,7 @@ hitokoto() {
             echo -e "${TEXT_RED}错误: 文件 $file_to_source 不存在${NC}" >&2
         elif source "$file_to_source" 2>/dev/null; then
             if declare -F get_random_hitokoto > /dev/null; then
-                echo -e "${BG_GREEN}每日一言：$(get_random_hitokoto)${NC}"
+                echo -e "${BG_GREEN}${TEXT_INVERT}每日一言：$(get_random_hitokoto)${NC}"
             else
                 echo -e "${TEXT_RED}错误:库文件不完整！${NC}" >&2
             fi
